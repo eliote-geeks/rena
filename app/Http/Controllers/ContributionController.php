@@ -12,7 +12,7 @@ class ContributionController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.contribution');
     }
 
     /**
@@ -49,7 +49,7 @@ class ContributionController extends Controller
 
     /**
      * Update the specified resource in storage.
-     */
+     */  
     public function update(Request $request, Contribution $contribution)
     {
         //

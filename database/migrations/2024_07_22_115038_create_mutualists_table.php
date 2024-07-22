@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('identification_type')->nullable();
             $table->string('num_identification')->nullable();
             $table->string('date_delivry')->nullable();
-            $table->string('date_delivry')->nullable();
+            $table->string('date_receive')->nullable();
             $table->string('matrimonial')->nullable();
             $table->string('beneficiary')->nullable();
             $table->string('beneficiary_1')->nullable();

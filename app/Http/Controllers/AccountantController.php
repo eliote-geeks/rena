@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accountant;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AccountantController extends Controller
 {
@@ -12,7 +14,8 @@ class AccountantController extends Controller
      */
     public function index()
     {
-        //
+        $accountants = Accountant::all();
+        return view('users.accountant',compact('accountants'));
     }
 
     /**
@@ -28,7 +31,23 @@ class AccountantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make('12345678');
+        $user->user_type = 'App\Models\Accountant';
+        $user->save;
+
+
+        $accountant = new Accountant();
+        $accountant->user_id = $user->id;
+        $accountant->save();
+        return redirect()->back()->with('message','Accountant saved !!');
     }
 
     /**
@@ -52,7 +71,17 @@ class AccountantController extends Controller
      */
     public function update(Request $request, Accountant $accountant)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $user = User::findOrFail($accountant->user_id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save;
+
+        return redirect()->back()->with('message','Accountant edited !!');
     }
 
     /**
@@ -60,6 +89,7 @@ class AccountantController extends Controller
      */
     public function destroy(Accountant $accountant)
     {
-        //
+        $accountant->delete();
+        return redirect()->back()->with('message','accountant deleted !!');
     }
 }

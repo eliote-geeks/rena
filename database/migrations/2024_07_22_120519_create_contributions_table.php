@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('contributions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('content');
+            $table->string('type');
             $table->timestamps();
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.

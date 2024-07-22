@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Salesperson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SalespersonController extends Controller
 {
@@ -12,7 +14,8 @@ class SalespersonController extends Controller
      */
     public function index()
     {
-        //
+        $sales = Salesperson::all();
+        return view('users.sales',compact('sales'));
     }
 
     /**
@@ -28,7 +31,22 @@ class SalespersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->user_type = 'App\Models\SalesPerson';
+        $user->password = Hash::make('12345678');
+        $user->save;
+
+        $sale = new Salesperson();
+        $sale->user_id = $user->id;
+        $sale->save();
+        return redirect()->back()->with('message','SalesPerson saved !!');
     }
 
     /**
@@ -50,9 +68,21 @@ class SalespersonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Salesperson $salesperson)
+    public function update(Request $request, Salesperson $sales)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $user = $sales->user_id;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make('12345678');
+        $user->save;
+
+
+        return redirect()->back()->with('message','SalesPerson saved !!');
     }
 
     /**
@@ -60,6 +90,7 @@ class SalespersonController extends Controller
      */
     public function destroy(Salesperson $salesperson)
     {
-        //
+        $salesperson->delete();
+        return redirect()->back()->with('message','SalesPerson deleted !!');
     }
 }

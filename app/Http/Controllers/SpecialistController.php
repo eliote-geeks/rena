@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Specialist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SpecialistController extends Controller
 {
@@ -12,7 +14,8 @@ class SpecialistController extends Controller
      */
     public function index()
     {
-        //
+        $specialists = Specialist::all();
+        return view('users.specialists',compact('specialists'));
     }
 
     /**
@@ -28,7 +31,22 @@ class SpecialistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make('12345678');
+        $user->user_type = 'App\Models\Specialist';
+        $user->save;
+
+        $sale = new Specialist();
+        $sale->user_id = $user->id;
+        $sale->save();
+        return redirect()->back()->with('message','Specialist saved !!');
     }
 
     /**
@@ -52,7 +70,18 @@ class SpecialistController extends Controller
      */
     public function update(Request $request, Specialist $specialist)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $user = $specialist->user_id;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make('12345678');
+        $user->save;
+
+        return redirect()->back()->with('message','Specialist edited !!');
     }
 
     /**
@@ -60,6 +89,7 @@ class SpecialistController extends Controller
      */
     public function destroy(Specialist $specialist)
     {
-        //
+        $specialist->delete();
+        return redirect()->with('message','specialist deleted !!');
     }
 }

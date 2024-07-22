@@ -12,7 +12,8 @@ class AmountYearController extends Controller
      */
     public function index()
     {
-        //
+      $amounts = AmountYear::all();
+        return view('pages.year',compact('ammounts'));
     }
 
     /**
@@ -28,7 +29,19 @@ class AmountYearController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
+            'amount' => 'required|float',
+        ]);
+
+        $amount = new AmountYear();
+        $amount->start = $request->start;
+        $amount->end = $request->end;
+        $amount->type = 'open';
+        $amount->amount = $request->amount;
+        $amount->save();
+        return redirect()->back()->with('message','saved !!');
     }
 
     /**
@@ -52,7 +65,20 @@ class AmountYearController extends Controller
      */
     public function update(Request $request, AmountYear $amountYear)
     {
-        //
+        $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
+            'amount' => 'required|float',
+            'status' => 'required'
+        ]);
+
+        $amount = new AmountYear();
+        $amount->start = $request->start;
+        $amount->end = $request->end;
+        $amount->type = $request->status;
+        $amount->amount = $request->amount;
+        $amount->save();
+        return redirect()->back()->with('message','edited !!');
     }
 
     /**
@@ -60,6 +86,7 @@ class AmountYearController extends Controller
      */
     public function destroy(AmountYear $amountYear)
     {
-        //
+        $amountYear->delete();
+        return redirect()->back()->with('message','deleted !!');
     }
 }

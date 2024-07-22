@@ -12,7 +12,8 @@ class YearController extends Controller
      */
     public function index()
     {
-        //
+        $year = Year::where('status','open')->lastest()->take(1)->first();
+        return view('pages.year',compact('year'));
     }
 
     /**
@@ -28,7 +29,17 @@ class YearController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
+        ]);
+
+        $year = new Year();
+        $year->start = $request->start;
+        $year->end = $request->end;
+        $year->type = 'open';
+        $year->save();
+        return redirect()->back()->with('message','saved !!');
     }
 
     /**
@@ -52,7 +63,18 @@ class YearController extends Controller
      */
     public function update(Request $request, Year $year)
     {
-        //
+        $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
+            'type' => 'required',
+        ]);
+        
+        $year = new Year();
+        $year->start = $request->start;
+        $year->end = $request->end;
+        $year->type = $request->type;
+        $year->save();
+        return redirect()->back()->with('message','saved !!');
     }
 
     /**
@@ -60,6 +82,7 @@ class YearController extends Controller
      */
     public function destroy(Year $year)
     {
-        //
+        $year->delete();
+        return redirect()->back()->with('message','Year deleted !!');
     }
 }
