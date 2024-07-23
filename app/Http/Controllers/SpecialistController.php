@@ -95,12 +95,31 @@ class SpecialistController extends Controller
 
     public function usersList()
     {
-        $users = User::latest()->get();
+        $users = User::where('user_type', '!=', 'App\Models\Mutualist')
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('users.specialist.users-list',compact('users'));
     }
 
     public function createUser()
     {
         return view('users.specialist.create-user');
+    }
+
+    public function newUser(Request $request)
+    {
+       $validate =  $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'user_type' => 'required',
+            'poste' => 'required',
+        ]);
+
+        $user =  User::create($validate);
+        $user->user_type = $request->user_type;
+        $user->save();
+        
+        return redirect()->route('usersList');
     }
 }

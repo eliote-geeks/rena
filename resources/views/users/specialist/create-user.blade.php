@@ -27,73 +27,67 @@
                       <!-- Ajouter les informations du compte -->
   
                       <div class="" style="font-weight: bold; color: gray;">
-                        <form action="#" method="post" id="account-form">                       
+                        <form action="{{ route('newUser') }}" method="post" id="account-form">     
+                            @csrf                  
   
                           <div class="row mb-3">
                             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nom complet :</label>
                             <div class="col-md-8 col-lg-9">
-                              <input name="nomUtilisateur" type="text" class="form-control" id="nomUtilisateur" placeholder="Entrez le nom complet de l'utilisateur" required>
+                              <input name="name" type="text" class="form-control" id="nomUtilisateur" placeholder="Entrez le nom complet de l'utilisateur" required>
+                              @error('name')
+                                  <small class="text-danger">{{ $message }}</small>
+                              @enderror
                             </div>
                           </div>
   
                           <div class="row mb-3">
                             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Login :</label>
                             <div class="col-md-6 col-lg-7">
-                              <input name="loginUtilisateur" type="text" class="form-control" id="loginUtilisateur" placeholder="Entrez le login de l'utilisateur" required>
+                              <input type="email" name="email" class="form-control" id="loginUtilisateur" placeholder="Entrez le login de l'utilisateur" required>
+                              @error('email')
+                              <small class="text-danger">{{ $message }}</small>
+                          @enderror
                             </div>
                           </div>
   
                           <div class="row mb-3">
                             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Mot de passe :</label>
                             <div class="col-md-8 col-lg-9">
-                              <input name="pwdUtilisateur" type="password" class="form-control" id="pwdUtilisateur" placeholder="Entrez le mot de passe de l'utilisateur">
+                              <input name="password" type="password" class="form-control" id="pwdUtilisateur" placeholder="Entrez le mot de passe de l'utilisateur">
+                              @error('password')
+                              <small class="text-danger">{{ $message }}</small>
+                          @enderror
                             </div>
                           </div>
   
                           <div class="row mb-3">
                             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Type de compte :</label>
                             <div class="col-md-8 col-lg-9">
-                              <select name="sexe" type="text" class="form-control" required>
-                                <option>Comptable</option>
-                                <option>Commercial</option>
-                                <option>Informaticien</option>
-                                <option>Opérateur</option>
+                              <select name="user_type" type="text" class="form-control" required>
+                                <option value="App\Models\Accountant">Comptable</option>
+                                <option value="App\Models\Salestore">Commercial</option>
+                                <option value="App\Models\Specialist">Informaticien</option>
+                                <option value="App\Models\Operator">Opérateur</option>
                               </select>
+                              @error('user_type')
+                              <small class="text-danger">{{ $message }}</small>
+                          @enderror
                             </div>
                           </div>
   
                           <div class="row mb-3">
                             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Poste :</label>
                             <div class="col-md-8 col-lg-9">
-                              <input name="posteUtilisateur" type="text" class="form-control" id="posteUtilisateur" placeholder="Entrez le poste de l'utilisateur" required>
+                              <input name="poste" type="text" class="form-control" id="posteUtilisateur" placeholder="Entrez le poste de l'utilisateur" required>
+                              @error('poste')
+                              <small class="text-danger">{{ $message }}</small>
+                          @enderror
                             </div>
                           </div>
   
-                          <div class="row mb-3">
-                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Pays de résidence:</label>
-                            <div class="col-md-8 col-lg-9">
-                              <select name="paysUtilisateur" type="text" class="form-control" id="paysUtilisateur" onchange="updatePhonePrefix()" required>
-                                <option value="">Selectionnez le pays de résidence</option>
-                                <option value="Cameroun">Cameroun</option>
-                                <option value="Côte d'Ivoire">Côte d'Ivoire</option>
-                                <option value="Russie">Russie</option>
-                                <option value="Canada">Canada</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                                <option value="France">France</option>
-                                <option value="Germany">Germany</option>
-                              </select>
-                            </div>
-                          </div>
-  
-                          <div class="row mb-3">
-                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Numéro de téléphone :</label>
-                            <div class="col-md-8 col-lg-9">
-                              <input name="numeroUtilisateur" type="text" class="form-control" id="numeroUtilisateur" placeholder="Entrez le numéro de téléphone de l'utilisateur" required>
-                            </div>
-                          </div> 
-  
+                       
                           <div class="text-center">
-                            <button type="button" class="btn btn-primary">Suivant</button>
+                            <button type="submit" class="btn btn-primary">Creer</button>
                           </div>
                         </form>
   

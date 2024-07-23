@@ -34,7 +34,7 @@
 }
 
 .datatable-info {
-	display: none;
+	display: blocks;
 }
 
 /* PAGER */

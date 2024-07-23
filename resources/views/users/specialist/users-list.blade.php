@@ -48,7 +48,7 @@
                                                 @break
 
                                                 @case('App\Models\Salestore')
-                                                    Informaticien
+                                                    Commercial
                                                 @break
 
                                                 @case('App\Models\Operator')
@@ -106,6 +106,7 @@
                                                                     <!-- Profile Edit Form -->
                                                                     <form action="#" method="post"
                                                                         id="account-form">
+                                                                        @csrf
 
                                                                         <div class="row mb-3">
                                                                             <label for="fullName"
@@ -149,7 +150,7 @@
                                                                                 class="col-md-4 col-lg-3 col-form-label">Type
                                                                                 de compte :</label>
                                                                             <div class="col-md-8 col-lg-9">
-                                                                                <select name="compte" type="text"
+                                                                                <select name="user_type" type="text"
                                                                                     class="form-control" required>
                                                                                     <option value="" selected>
                                                                                         @switch($user->user_type)
@@ -162,7 +163,7 @@
                                                                                             @break
 
                                                                                             @case('App\Models\Salestore')
-                                                                                                Informaticien
+                                                                                                Commercial
                                                                                             @break
 
                                                                                             @case('App\Models\Operator')
@@ -173,12 +174,10 @@
                                                                                         @endswitch
 
 
-
-
-                                                                                    <option>Comptable</option>
-                                                                                    <option>Commercial</option>
-                                                                                    <option>Informaticien</option>
-                                                                                    <option>Opérateur</option>
+                                                                                        <option value="App\Models\Accountant">Comptable</option>
+                                                                                        <option value="App\Models\Salestore">Commercial</option>
+                                                                                        <option value="App\Models\Specialist">Informaticien</option>
+                                                                                        <option value="App\Models\Operator">Opérateur</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -188,7 +187,7 @@
                                                                                 class="col-md-4 col-lg-3 col-form-label">Poste
                                                                                 :</label>
                                                                             <div class="col-md-8 col-lg-9">
-                                                                                <input name="editPoste" type="text"
+                                                                                <input name="poste" type="text"
                                                                                     class="form-control"
                                                                                     id="editPoste"
                                                                                     placeholder="Entrez le poste de l'utilisateur"
@@ -197,9 +196,8 @@
                                                                             </div>
                                                                         </div>
 
-
                                                                         <div class="text-center">
-                                                                            <button type="button"
+                                                                            <button type="submit"
                                                                                 class="btn btn-primary">Modifier</button>
                                                                         </div>
 

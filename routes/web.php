@@ -40,6 +40,7 @@ Route::post('welcome/post',function(Request $request){
 // uSERS
 Route::get('users-list',[SpecialistController::class,'usersList'])->name('usersList');
 Route::get('create-user',[SpecialistController::class,'createUser'])->name('create-user');
+Route::post('create-user',[SpecialistController::class,'newUser'])->name('newUser');
 
 
 Route::get('add-Card/{mutual}',[MutualistController::class,'addCart'])->name('add-Cart');
