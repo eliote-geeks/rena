@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\MutualistController;
-use App\Http\Controllers\SpecialistController;
 use App\Models\Mutualist;
+use App\Models\AmountYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MutualistController;
+use App\Http\Controllers\AmountYearController;
+use App\Http\Controllers\SpecialistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +42,12 @@ Route::post('welcome/post',function(Request $request){
 // uSERS
 Route::get('users-list',[SpecialistController::class,'usersList'])->name('usersList');
 Route::get('create-user',[SpecialistController::class,'createUser'])->name('create-user');
+Route::post('edit-user/{user}',[SpecialistController::class,'editUser'])->name('editUser');
+Route::get('delete-user/{user}',[SpecialistController::class,'delete'])->name('deletetUser');
 Route::post('create-user',[SpecialistController::class,'newUser'])->name('newUser');
+Route::get('close-year/{year}',[AmountYearController::class,'closeYear'])->name('closeYear');
+Route::get('close-year-amount',[AmountYearController::class,'closeYearAmount'])->name('closeYearAmount');
+
 
 
 Route::get('add-Card/{mutual}',[MutualistController::class,'addCart'])->name('add-Cart');
@@ -52,3 +59,4 @@ Route::get('mutualist/transaction',[MutualistController::class,'transaction'])->
 Route::get('mutualist/history',[MutualistController::class,'history'])->name('history-day-transaction');
 Route::get('mutualist/new-transaction',[MutualistController::class,'newTransaction'])->name('newTransaction');
 Route::resource('mutualist',MutualistController::class);
+Route::resource('amountYear', AmountYearController::class);

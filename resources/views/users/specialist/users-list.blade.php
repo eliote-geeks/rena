@@ -72,7 +72,7 @@
                                                     </button>
                                                     <button class="btn btn-outline-danger rounded-end"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#preview-modal{{ $user->id }}"
+                                                        data-bs-target="#preview-delete{{ $user->id }}"
                                                         style="margin-left:2px;" type="button" id="deleteUser"
                                                         name="deleteUser">
                                                         <i class="bi bi-trash fs-6"></i>
@@ -104,10 +104,9 @@
                                                                     style="font-weight: bold; color: gray;">
 
                                                                     <!-- Profile Edit Form -->
-                                                                    <form action="#" method="post"
-                                                                        id="account-form">
+                                                                    <form action="{{ route('editUser', $user) }}"
+                                                                        method="post" id="account-form">
                                                                         @csrf
-
                                                                         <div class="row mb-3">
                                                                             <label for="fullName"
                                                                                 class="col-md-4 col-lg-3 col-form-label">Nom
@@ -150,9 +149,33 @@
                                                                                 class="col-md-4 col-lg-3 col-form-label">Type
                                                                                 de compte :</label>
                                                                             <div class="col-md-8 col-lg-9">
-                                                                                <select name="user_type" type="text"
+                                                                                <select name="user_type"
+                                                                                    type="text"
                                                                                     class="form-control" required>
-                                                                                    <option value="" selected>
+                                                                                    <option
+                                                                                        value="
+                                                                                           @switch($user->user_type)
+                                                                                            @case('App\Models\Accountant')
+                                                                                                App\Models\Accountant
+                                                                                            @break
+
+                                                                                            @case('App\Models\Specialist')
+                                                                                                App\Models\Specialist
+                                                                                            @break
+
+                                                                                            @case('App\Models\Salestore')
+                                                                                                App\Models\Salestore
+                                                                                            @break
+
+                                                                                            @case('App\Models\Operator')
+                                                                                                App\Models\Operator
+                                                                                            @break
+
+                                                                                            @default
+                                                                                        @endswitch
+                                                                                    
+                                                                                    "
+                                                                                        selected>
                                                                                         @switch($user->user_type)
                                                                                             @case('App\Models\Accountant')
                                                                                                 Comptable
@@ -174,10 +197,18 @@
                                                                                         @endswitch
 
 
-                                                                                        <option value="App\Models\Accountant">Comptable</option>
-                                                                                        <option value="App\Models\Salestore">Commercial</option>
-                                                                                        <option value="App\Models\Specialist">Informaticien</option>
-                                                                                        <option value="App\Models\Operator">Opérateur</option>
+                                                                                    <option
+                                                                                        value="App\Models\Accountant">
+                                                                                        Comptable</option>
+                                                                                    <option
+                                                                                        value="App\Models\Salestore">
+                                                                                        Commercial</option>
+                                                                                    <option
+                                                                                        value="App\Models\Specialist">
+                                                                                        Informaticien</option>
+                                                                                    <option
+                                                                                        value="App\Models\Operator">
+                                                                                        Opérateur</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -211,14 +242,14 @@
                                         </div>
                                     </div>
 
-                                    <div class="modal fade" id="preview-modal{{ $user->id }}" tabindex="-1"
+                                    <div class="modal fade" id="preview-delete{{ $user->id }}" tabindex="-1"
                                         aria-labelledby="preview-modal1-label" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-lg"
                                             style="max-width: 50%;">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="preview-modal1-label">Supprimer le
-                                                        compte</h5>
+                                                        compte <b>{{ $user->name }}</b></h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -249,8 +280,8 @@
                                                                             <div class="form-floating mb-3">
                                                                                 <center>
                                                                                     <div class="btn-group">
-                                                                                        <button type="submit"
-                                                                                            class="btn btn-danger btn-lg">Oui</button>
+                                                                                        <a href="{{ route('deletetUser', $user) }}"
+                                                                                            class="btn btn-danger btn-lg">Oui</a>
                                                                                         <button type="button"
                                                                                             class="btn btn-success btn-lg"
                                                                                             data-bs-dismiss="modal">Non</button>

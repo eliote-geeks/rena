@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\AmountYear;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class AmountYearController extends Controller
     public function index()
     {
       $amounts = AmountYear::all();
-        return view('pages.year',compact('ammounts'));
+        return view('pages.year',compact('amounts'));
     }
 
     /**
@@ -29,11 +30,22 @@ class AmountYearController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+        $validatedData = $request->validate([
+            'amount' => 'required',
             'start' => 'required|date',
-            'end' => 'required|date|after:start',
-            'amount' => 'required|float',
+            'end' => 'required|date|after_or_equal:start_date',
+        ], [
+            'end.after_or_equal' => 'The end date must be a date after or equal to the start date.',
         ]);
+
+    
+        $startDate = Carbon::parse($request->start);
+        $endDate = Carbon::parse($request->end);
+
+        if ($startDate->diffInYears($endDate) < 1) {
+            return back()->withErrors(['end' => 'The end date must be at least one year after the start date.']);
+        }
 
         $amount = new AmountYear();
         $amount->start = $request->start;
@@ -68,7 +80,7 @@ class AmountYearController extends Controller
         $request->validate([
             'start' => 'required|date',
             'end' => 'required|date|after:start',
-            'amount' => 'required|float',
+            'amount' => 'required',
             'status' => 'required'
         ]);
 
@@ -81,6 +93,13 @@ class AmountYearController extends Controller
         return redirect()->back()->with('message','edited !!');
     }
 
+    public function closeYear(AmountYear $year)
+    {
+        $year->type = 'close';
+        $year->save();
+        return redirect()->route('amountYear.index');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -88,5 +107,14 @@ class AmountYearController extends Controller
     {
         $amountYear->delete();
         return redirect()->back()->with('message','deleted !!');
+    }
+
+    public function closeYearAmount()
+    {
+        $year = AmountYear::where('type','open')->latest()->first();
+        
+        return view('pages.close-year',[
+            'year' => $year
+        ]);
     }
 }

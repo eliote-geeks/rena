@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('amount_years', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('year_id')->references('id')->on('years')->onDelete('cascade');
+            $table->date('start');
+            $table->date('end');
+            $table->string('type');
             $table->double('amount');
             $table->timestamps();
         });

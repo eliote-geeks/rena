@@ -118,8 +118,33 @@ class SpecialistController extends Controller
 
         $user =  User::create($validate);
         $user->user_type = $request->user_type;
+        $user->password = bcrypt($request->password);
         $user->save();
-        
+
         return redirect()->route('usersList');
+    }
+
+    public function editUser(Request $request,User $user)
+    {
+        $validate =  $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'user_type' => 'required',
+            'poste' => 'required',
+        ]);
+
+        $user->update($validate);
+        $user->user_type = $request->user_type;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect()->back()->with('message','informations updated !!');
+    }
+
+
+    public function delete(User $user)
+    {
+        $user->delete();
+        return redirect()->back()->with('message','user removed !!!!');
     }
 }
