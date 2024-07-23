@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MutualistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,10 @@ Route::middleware([
 Route::post('welcome/post',function(Request $request){
     dd($request->all());
 })->name('welcomePost');
+
+
+Route::get('mutualist/search',[MutualistController::class,'search'])->name('searchMutualist');
+Route::get('mutualist/transaction',[MutualistController::class,'transaction'])->name('transactionMutualistList');
+Route::get('mutualist/history',[MutualistController::class,'history'])->name('history-day-transaction');
+Route::get('mutualist/new-transaction',[MutualistController::class,'newTransaction'])->name('newTransaction');
+Route::resource('mutualist',MutualistController::class);

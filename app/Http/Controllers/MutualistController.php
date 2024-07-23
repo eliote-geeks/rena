@@ -12,7 +12,7 @@ class MutualistController extends Controller
      */
     public function index()
     {
-        //
+        return view('users.mutualist.index');
     }
 
     /**
@@ -20,7 +20,31 @@ class MutualistController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.mutualist.new-account');
+    }
+
+    /**
+     * Search the resource.
+     */
+    public function search()
+    {
+        return view('users.mutualist.search');
+    }
+
+    /**
+     * new the resource.
+     */
+    public function newTransaction()
+    {
+        return view('users.mutualist.new-cotisation');
+    }
+
+    /**
+     * List the resource.
+     */
+    public function transaction()
+    {
+        return view('users.mutualist.transaction');
     }
 
     /**
@@ -36,7 +60,17 @@ class MutualistController extends Controller
      */
     public function show(Mutualist $mutualist)
     {
-        //
+        return view('users.mutualist.show', [
+            'mutualist' => $mutualist,
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function history()
+    {
+        return view('users.mutualist.historique');
     }
 
     /**
