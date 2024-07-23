@@ -30,16 +30,6 @@ return new class extends Migration
             $table->string('date_receive')->nullable();
             $table->string('matrimonial')->nullable();
             $table->string('beneficiary')->nullable();
-            $table->string('beneficiary_1')->nullable();
-            $table->string('beneficiary_2')->nullable();
-            $table->string('beneficiary_3')->nullable();
-            $table->string('beneficiary_4')->nullable();
-            $table->string('beneficiary_5')->nullable();
-            $table->string('beneficiary_6')->nullable();
-            $table->string('beneficiary_7')->nullable();
-            $table->string('beneficiary_8')->nullable();
-            $table->string('beneficiary_9')->nullable();
-            $table->string('beneficiary_10')->nullable();
             $table->longText('id_card_smart')->nullable();
             $table->timestamps();
         });

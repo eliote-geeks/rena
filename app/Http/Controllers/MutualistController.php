@@ -96,4 +96,71 @@ class MutualistController extends Controller
     {
         //
     }
+
+    public function addCart(Mutualist $mutual)
+    {
+        return view('users.mutualist.add-cart',[
+            'mutual' => $mutual
+        ]);
+    }
+
+    public function remplace($texte)
+    {
+        $equivalences = [
+            '&' => '1',
+            'é' => '2',
+            '"' => '3',
+            "'" => '4',
+            '(' => '5',
+            '-' => '6',
+            'è' => '7',
+            '_' => '8',
+            'ç' => '9',
+            'à' => '0',
+        ];
+
+        $nouveau = str_replace(array_keys($equivalences), array_values($equivalences), $texte);
+
+        return $nouveau;
+    }
+
+    public function addCardPost(Request $request, Mutualist $mutual)
+    {
+       $request->validate([
+        'id_card_smart' => 'required|max:10|min:10',
+       ]);
+       $id = $this->remplace($request->id_card_smart);
+        if(Mutualist::where('id_card_smart',$id)->count() == 0){
+            $mutual->id_card_smart = $id;
+            $mutual->save();
+            return redirect()->route('mutualist.create')->with('message','Mutualist Added Successfully With Smart Cart !!');
+         }
+         else
+            return redirect()->back()->with('error','Card has been taken !!');
+    }
+
+    public function searchByCard(Request $request)
+    {
+        $request->validate([
+            'id_card_smart' => 'required|min:10|max:10',
+        ]);
+
+        $id = $this->remplace($request->id_card_smart);
+
+        if(Mutualist::where('id_card_smart',$id)->count() > 0)
+        {
+            $mutual = Mutualist::where('id_card_smart',$id)->first();
+            //  dd($mutual);
+            return redirect()->route('mutualist.show',[
+                'mutualist' => $mutual
+            ]);
+        }
+        else
+            return redirect()->back()->with('message','user not found');
+    }
+
+    public function searchcard()
+    {
+        return view('users.mutualist.search-card');
+    }
 }

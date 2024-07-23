@@ -92,4 +92,15 @@ class SpecialistController extends Controller
         $specialist->delete();
         return redirect()->with('message','specialist deleted !!');
     }
+
+    public function usersList()
+    {
+        $users = User::latest()->get();
+        return view('users.specialist.users-list',compact('users'));
+    }
+
+    public function createUser()
+    {
+        return view('users.specialist.create-user');
+    }
 }

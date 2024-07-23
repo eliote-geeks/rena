@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Accountant;
+use App\Models\Beneficiary;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
@@ -76,9 +77,14 @@ class User extends Authenticatable
         return $this->hasMany(Specialist::class);
     }
 
-    public function mutualist()
+    public function mutual()
     {
         return $this->hasMany(Mutualist::class);
+    }
+
+    public function beneficiary()
+    {
+        return $this->hasMany(Beneficiary::class);
     }
 
 }
