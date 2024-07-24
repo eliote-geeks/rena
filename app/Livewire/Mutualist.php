@@ -149,15 +149,20 @@ class Mutualist extends Component
         if ($this->edit == null) {
             $user = new User();
         } else {
-            $user = ModelsMutualist::findOrFail($this->edit);
+            $user = User::findOrFail(ModelsMutualist::findOrFail($this->edit)->user_id);
         }
 
         $user->name = $this->firstName;
         $user->email = $this->firstName . rand(0, 1000) . '@gmail' . rand(0, 10000) . 'com';
         $user->password = Hash::make(12345678);
         $user->user_type = 'App\Models\Mutualist';
-        $user->updateProfilePhoto($this->avatar);
-        $user->save();
+
+        if ($this->edit == null)
+            $user->updateProfilePhoto($this->avatar);
+        
+        
+        
+            $user->save();
 
         if ($this->edit) {
             $mutual = ModelsMutualist::findOrFail($this->edit);

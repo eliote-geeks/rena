@@ -19,7 +19,7 @@
             <div class="card-body">
                 <h1 class="fw-bold text-center text-black mb-4">APPROCHEZ LA CARTE DU MUTUALISTE POUR RECHERCHER SON COMPTE</h1>
     
-                <form action="{{ route('searchByCard') }}" method="POST" id="account-form">
+                <form action="{{ route('searchByCard') }}" method="POST" id="account-form" autocomplete="off">
                     @csrf
                     <div class="d-flex justify-content-center mb-3">
                         <div class="spinner-grow text-primary" style="width: 7rem; height: 7rem;">

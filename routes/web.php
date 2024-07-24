@@ -20,7 +20,7 @@ use App\Http\Controllers\SpecialistController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('search-by-Cart');
 });
 
 Route::middleware([
@@ -31,7 +31,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return redirect()->route('search-by-Cart');
     })->name('dashboard');
-});
+
 
 
 Route::post('welcome/post',function(Request $request){
@@ -76,3 +76,7 @@ Route::get('mutualist/history',[MutualistController::class,'history'])->name('hi
 Route::get('mutualist/new-transaction',[MutualistController::class,'newTransaction'])->name('newTransaction');
 Route::resource('mutualist',MutualistController::class);
 Route::resource('amountYear', AmountYearController::class);
+
+
+
+});

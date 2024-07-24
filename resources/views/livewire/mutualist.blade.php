@@ -470,7 +470,7 @@
                                 <th>Adresse</th>
                                 <th>Sexe</th>
                                 <th>n° Identification</th>
-                                <th>Montant Total Cotisation</th>
+                                {{-- <th>Montant Total Cotisation</th> --}}
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -483,7 +483,7 @@
                                     <td>{{ $mutual->phone }}</td>
                                     <td>{{ $mutual->sex }}</td>
                                     <td>{{ $mutual->num_identification }}</td>
-                                    <td>2020</td>
+                                    {{-- <td>2020</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <button wire:click='editUserProfile({{ $mutual->id }})'
