@@ -178,6 +178,7 @@ class MutualistController extends Controller
         }
     }
 
+   
     public function searchcard()
     {
         return view('users.mutualist.search-card');
@@ -300,4 +301,11 @@ class MutualistController extends Controller
 
         return redirect()->back()->with('message','saved!!');
     }
+
+    public function eligible()
+    {
+        return view('pages.eligible');
+    }
+
+    
 }

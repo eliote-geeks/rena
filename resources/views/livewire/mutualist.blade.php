@@ -41,8 +41,8 @@
                                                         style="width: 115px; height:115px;">
 
                                                         @if ($edit)
-                                                        {{-- <img src="{{ \App\Models\User::findOrFail(\App\Models\Mutualist::findOrFail($this->edit)->user_id)->profile_photo_url }}"
-                                                        class="img-fluid h-100 w-100" id="imgPreview"> --}}
+                                                        <img src="{{ \App\Models\User::findOrFail(\App\Models\Mutualist::findOrFail($this->edit)->user_id)->profile_photo_url }}"
+                                                        class="img-fluid h-100 w-100" id="imgPreview">
                                                         @else
                                                             <img src="{{ $avatar ? $avatar->temporaryUrl() : 'assets/img/blank_image.jpg' }}"
                                                                 class="img-fluid h-100 w-100" id="imgPreview">
@@ -343,12 +343,13 @@
                                         <div class="col-md-8 col-lg-9">
                                             <div class="square overflow-hiddden" style="width: 115px; height:115px;">
                                                 @if ($edit)
-                                                    {{-- <img src="{{ \App\Models\User::findOrFail(\App\Models\Mutualist::findOrFail($this->edit)->user_id)->profile_photo_url }}"
-                                                        class="img-fluid h-100 w-100" id="imgPreview"> --}}
+                                                <img src="{{ \App\Models\User::findOrFail(\App\Models\Mutualist::findOrFail($this->edit)->user_id)->profile_photo_url }}"
+                                                class="img-fluid h-100 w-100" id="imgPreview">
                                                 @else
                                                     <img src="{{ $avatar ? $avatar->temporaryUrl() : 'assets/img/blank_image.jpg' }}"
                                                         class="img-fluid h-100 w-100" id="imgPreview">
                                                 @endif
+
                                             </div>
                                         </div>
                                     </div>

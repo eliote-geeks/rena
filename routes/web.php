@@ -39,6 +39,9 @@ Route::post('welcome/post',function(Request $request){
 })->name('welcomePost');
 
 
+// eligibilite
+
+Route::get('eligible',[MutualistController::class,'eligible'])->name('eligible');
 // uSERS
 Route::get('users-list',[SpecialistController::class,'usersList'])->name('usersList');
 Route::get('create-user',[SpecialistController::class,'createUser'])->name('create-user');

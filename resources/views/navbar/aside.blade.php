@@ -98,12 +98,7 @@
         <!-- ======= DEBUT OPERATEUR ======= -->
         <!-- ======= DEBUT OPERATEUR ======= -->
 
-        <li class="nav-item active">
-            <a class="nav-link collapsed" href="verification-eligibilité">
-                <i class="bi bi-check-circle fs-6"></i>
-                <span>Eligibilité</span>
-            </a>
-        </li>
+     
 
         <!-- ======= FIN OPERATEUR ======= -->
         <!-- ======= FIN OPERATEUR ======= -->

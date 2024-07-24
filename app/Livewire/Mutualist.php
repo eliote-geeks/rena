@@ -149,7 +149,7 @@ class Mutualist extends Component
         if ($this->edit == null) {
             $user = new User();
         } else {
-            $user = ModelsMutualist::findOrFail($this->edit)->user_id;
+            $user = ModelsMutualist::findOrFail($this->edit);
         }
 
         $user->name = $this->firstName;
