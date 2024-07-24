@@ -49,6 +49,15 @@ Route::get('close-year/{year}',[AmountYearController::class,'closeYear'])->name(
 Route::get('close-year-amount',[AmountYearController::class,'closeYearAmount'])->name('closeYearAmount');
 
 
+// cotisation:
+Route::get('cotisation-card',[MutualistController::class,'cotisationCard'])->name('cotisationCard');
+Route::post('cotisation-card',[MutualistController::class,'searchTransactionCard'])->name('searchTransactionCard');
+Route::get('start-Transaction/{mutual}',[MutualistController::class,'startTransaction'])->name('startTransaction');
+Route::post('addTransaction/{mutual}',[MutualistController::class,'addTransaction'])->name('addTransaction');
+
+
+
+
 
 Route::get('add-Card/{mutual}',[MutualistController::class,'addCart'])->name('add-Cart');
 Route::get('search-by-card/',[MutualistController::class,'searchcard'])->name('search-by-Cart');

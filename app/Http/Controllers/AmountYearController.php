@@ -111,7 +111,7 @@ class AmountYearController extends Controller
 
     public function closeYearAmount()
     {
-        $year = AmountYear::where('type','open')->latest()->first();
+        $year = AmountYear::where('type','open')->latest()->firstOrFail();
         
         return view('pages.close-year',[
             'year' => $year

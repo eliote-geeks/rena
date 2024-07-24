@@ -14,4 +14,9 @@ class AmountYear extends Model
     {
         return $this->belongsTo(Year::class);
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

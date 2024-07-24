@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AmountYear;
+use App\Models\Year;
 use App\Models\Mutualist;
+use App\Models\SmartCard;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class MutualistController extends Controller
@@ -99,8 +103,8 @@ class MutualistController extends Controller
 
     public function addCart(Mutualist $mutual)
     {
-        return view('users.mutualist.add-cart',[
-            'mutual' => $mutual
+        return view('users.mutualist.add-cart', [
+            'mutual' => $mutual,
         ]);
     }
 
@@ -126,17 +130,24 @@ class MutualistController extends Controller
 
     public function addCardPost(Request $request, Mutualist $mutual)
     {
-       $request->validate([
-        'id_card_smart' => 'required|max:10|min:10',
-       ]);
-       $id = $this->remplace($request->id_card_smart);
-        if(Mutualist::where('id_card_smart',$id)->count() == 0){
-            $mutual->id_card_smart = $id;
-            $mutual->save();
-            return redirect()->route('mutualist.create')->with('message','Mutualist Added Successfully With Smart Cart !!');
-         }
-         else
-            return redirect()->back()->with('error','Card has been taken !!');
+        $request->validate([
+            'id_card_smart' => 'required|max:10|min:10',
+        ]);
+        $id = $this->remplace($request->id_card_smart);
+        if (
+            SmartCard::where([
+                'id_card_smart' => $id
+            ])->count() == 0
+        ) {
+            $card = new SmartCard();
+            $card->id_card_smart = $id;
+            $card->user_id = $mutual->id;
+            $card->status = 'on';
+            $card->save();
+            return redirect()->route('mutualist.create')->with('message', 'Mutualist Added Successfully With Smart Cart !!');
+        } else {
+            return redirect()->back()->with('error', 'Card has been taken !!');
+        }
     }
 
     public function searchByCard(Request $request)
@@ -147,20 +158,91 @@ class MutualistController extends Controller
 
         $id = $this->remplace($request->id_card_smart);
 
-        if(Mutualist::where('id_card_smart',$id)->count() > 0)
-        {
-            $mutual = Mutualist::where('id_card_smart',$id)->first();
-            //  dd($mutual);
-            return redirect()->route('mutualist.show',[
-                'mutualist' => $mutual
+        if (
+            SmartCard::where([
+                'id_card_smart' => $id,
+                'status' => 'on',
+            ])->count() > 0
+        ) {
+            $card = SmartCard::where([
+                'id_card_smart' => $id,
+                'status' => 'on',
+            ])->firstOrFail();
+            $mutual = Mutualist::findOrFail($card->user_id);
+            
+            return redirect()->route('mutualist.show', [
+                'mutualist' => $mutual,
             ]);
+        } else {
+            return redirect()->back()->with('message', 'user not found');
         }
-        else
-            return redirect()->back()->with('message','user not found');
     }
 
     public function searchcard()
     {
         return view('users.mutualist.search-card');
+    }
+
+    public function searchTransactionCard(Request $request)
+    {
+        $request->validate([
+            'id_card_smart' => 'required|min:10|max:10',
+        ]);
+
+        $id = $this->remplace($request->id_card_smart);
+
+        if (
+            SmartCard::where([
+                'id_card_smart' => $id,
+                'status' => 'on',
+            ])->count() > 0
+        ) {
+            $card = SmartCard::where([
+                'id_card_smart' => $id,
+                'status' => 'on',
+            ])->firstOrFail();
+            $mutual = Mutualist::findOrFail($card->user_id);
+            
+            return redirect()->route('startTransaction', [
+                'mutual' => $mutual,
+            ]);
+        } else {
+            return redirect()->back()->with('message', 'user not found');
+        }        
+    }
+
+    public function startTransaction(Mutualist $mutual)
+    {
+        // $year = now()->year;
+
+        // $balance = $mutual->getBalance();
+        // $remainingAmount = $mutual->getRemainingAmountForYear($year);
+        return view('cotisations.start-transaction',[
+            'mutual' => $mutual,
+            // 'remainingAmount' => $remainingAmount,
+            // 'balance' => $balance,
+        ]);
+    }
+
+    public function addTransaction(Request $request, Mutualist $mutual)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:500'
+        ]);
+
+        $year = AmountYear::where('type','open')->firstOrFail();
+
+        $t = new Transaction();
+        $t->mutualist_id = $mutual->id;
+        $t->amount_year_id = $year->id;
+        $t->amount = $request->amount;
+        $t->content = 'Paiement par :'.auth()->user()->name.' le: '.now();
+        $t->save();
+
+    }
+
+    public function cotisationCard()
+    {
+        return view('cotisations.cotisation-card');
     }
 }

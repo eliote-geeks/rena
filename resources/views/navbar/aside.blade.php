@@ -13,12 +13,12 @@
             </a>
             <ul id="utilisateurs-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="liste-utilisateurs.php">
+                    <a href="{{ route('usersList') }}">
                         <i class="bi bi-journal-text fs-5"></i><span>Liste</span>
                     </a>
                 </li>
                 <li>
-                    <a href="creer-compte-utilisateur.php">
+                    <a href="{{ route('create-user') }}">
                         <i class="bi bi-person-plus fs-5"></i><span>Créer un compte</span>
                     </a>
                 </li>
@@ -33,7 +33,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="paramètres.php">
+            <a class="nav-link collapsed" href="{{ route('amountYear.index') }}">
                 <i class="bi bi-gear fs-5"></i>
                 <span>Paramètres</span>
             </a>
@@ -51,13 +51,19 @@
             </a>
             <ul id="mutualiste-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="ajout-compte.php">
+                    <a href="{{ route('mutualist.create') }}">
                         <i class="bi bi-person-plus fs-6"></i><span>Créer un compte</span>
                     </a>
                 </li>
                 <li>
-                    <a href="ajout-cotisation.php">
+                    <a href="{{ route('cotisationCard') }}">
                         <i class="bi bi-coin fs-6"></i><span>Ajouter une cotisation</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('search-by-Cart') }}">
+                        <i class="bi bi-search fs-6"></i><span>Recherche</span>
                     </a>
                 </li>
             </ul>
@@ -83,7 +89,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="cloture-année.php">
+            <a class="nav-link collapsed" href="{{ route('closeYearAmount') }}">
                 <i class="bi bi-x-circle fs-6"></i>
                 <span>Cloturer l'année</span>
             </a>
@@ -110,43 +116,7 @@
         <!-- ======= DEBUT COMMERCIAL ======= -->
         <!-- ======= DEBUT COMMERCIAL ======= -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-person-fill fs-5"></i><span>Mutualistes</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="ajout-compte.php">
-                        <i class="bi bi-person-plus fs-6"></i><span>Créer un compte</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="ajout-cotisation.php">
-                        <i class="bi bi-coin fs-6"></i><span>Ajouter une cotisation</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Components Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text fs-5"></i><span>Historique</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="transactions-journée.php">
-                        <i class="bi bi-currency-exchange fs-6"></i><span>Transactions de la journée</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="historique-cotisation">
-                        <i class="bi bi-journal-text fs-6"></i><span>Cotisations des mutualistes</span>
-                    </a>
-                </li>
-                <li>
-            </ul>
-        </li>
-
+       
         <!-- ======= FIN COMMERCIAL ======= -->
         <!-- ======= FIN COMMERCIAL ======= -->
     </ul>

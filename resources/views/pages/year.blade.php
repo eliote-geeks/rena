@@ -38,9 +38,10 @@
                                     <div class="row mb-3" style="font-weight: bold; font-size:18px;">
                                         <label for="fullName" class="col-form-label">Définir la période de l'année des
                                             cotisations</label>
-                                        {{-- <label for="fullName" class="col-form-label"
+                                            
+                                        <label for="fullName" class="col-form-label"
                                             style="color: gray; font-size:17px;">La période actuelle va du 14/07/2024 au
-                                            13/07/2024</label> --}}
+                                            13/07/2024</label>
                                     </div>
                                     <div class="" style="font-weight: bold; color: gray;">
                                         <form action="{{ route('amountYear.store') }}" method="POST" id="account-form">
