@@ -6,7 +6,7 @@
             <div class="card-body">
                 <h1 class="fw-bold text-center text-black mb-4">APPROCHEZ LA CARTE DU MUTUALISTE POUR RECHERCHER SON COMPTE</h1>
     
-                <form action="{{ route('searchTransactionCard') }}" method="POST" id="account-form">
+                <form action="{{ route('searchTransactionCard') }}" method="POST" id="account-form" autocomplete="off">
                     @csrf
                     <div class="d-flex justify-content-center mb-3">
                         <div class="spinner-grow text-primary" style="width: 7rem; height: 7rem;">
@@ -15,14 +15,13 @@
                     </div>
     
                     <div class="form-floating mb-3 visually-hidden">
-                        <input  type="text" class="form-control" id="floatingInput" placeholder="card" name="id_card_smart" autofocus>
+                        <input  type="text" class="form-control" id="floatingInput" placeholder="card" name="id_card_smart" autocomplete="off" autofocus>
                         <label for="floatingInput">Card</label>
                     </div>
     
                     @error('id_card_smart')
-                        <div class="text-danger text-center mb-3">
-                            <small>{{ $message }}</small>
-                        </div>
+                     <small class="text-danger">Afficher une erreur si carte désactivée ou non existantes{{ $message }}</small>
+                        
                     @enderror
     
                 </form>

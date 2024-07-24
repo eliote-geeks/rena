@@ -189,7 +189,7 @@
                                         <th>Date du paiement</th>
                                         <th>Heure du paiement</th>
                                         <th>Montant de la transaction</th>
-                                        <th>Année</th>
+                                        <th>Acte</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -198,7 +198,7 @@
                                         <td>14/01/2024</td>
                                         <td>12h45</td>
                                         <td>8000FCFA</td>
-                                        <td>2020</td>
+                                        <td>Acte 1</td>
                                     </tr>
                                 </tbody>
                             </table>

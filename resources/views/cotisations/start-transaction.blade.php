@@ -34,7 +34,7 @@
                       <div class="row mb-3">
                         <label for="fullName" class="col-md-4 col-lg-5 col-form-label">Montant de la cotisation en FCFA :</label>
                         <div class="col-md-8 col-lg-6">
-                          <input type="text" class="form-control" id="montantCotisation" placeholder="Entrez le montant de la cotisation" name="amount" required>
+                          <input type="text" class="form-control" id="montantCotisation" placeholder="Entrez le montant de la cotisation" name="amount" oninput="formatAmount(this)" required>
                           @error('amount')
                               <small class="text-danger">{{ $message }}</small>
                           @enderror
@@ -42,7 +42,7 @@
                       </div>
   
                       <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Valider</button>
+                        <button type="submit" @if(\App\Models\TransactionStatus::where('status',0)->count() > 0) disabled  @endif class="btn btn-primary">Valider</button>
                       </div>
                     </form><!-- End Profile Edit Form -->
   

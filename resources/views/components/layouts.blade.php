@@ -62,6 +62,18 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script>
+        function formatAmount(input) {
+            // Remove non-numeric characters
+            let value = input.value.replace(/[^0-9.-]+/g, "");
+
+            // Add thousand separators
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+            // Set the formatted value back to the input
+            input.value = value;
+        }
+    </script>
 </body>
 
 </html>

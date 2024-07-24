@@ -193,7 +193,7 @@
                           <th>Date du paiement</th>
                           <th>Heure du paiement</th>
                           <th>Montant de la transaction</th>
-                          <th>Année</th>
+                          <th>Acte</th>
                         </tr>
                       </thead>
                       <tbody>

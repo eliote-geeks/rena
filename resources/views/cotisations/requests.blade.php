@@ -25,9 +25,8 @@
                                 <tr>
                                     <th class="align-middle">Nom du mutualiste</th>
                                     <th class="align-middle">Prenom du mutualiste</th>
-                                    <th class="align-middle">Matricule</th>
+                                    <th class="align-middle">N° de compte</th>
                                     <th class="align-middle">Heure du paiement</th>
-                                    <th class="align-middle"> montant de la cotisation</th>
                                     <th class="align-middle text-center">Options</th>
                                 </tr>
                             </thead>
@@ -38,26 +37,14 @@
                                     <td class="align-middle">{{ $t->mutualist->last }}</td>
                                     <td class="align-middle">{{ $t->mutualist->num_identification }}</td>
                                     <td class="align-middle">{{ \Carbon\Carbon::parse($t->created_at)->format('d, M Y') }}</td>
-                                    <td class="align-middle">{{ number_format($t->amount) }}FCFA</td>
                                     <td class="align-middle text-center">
                                         <form action="#" method="post">
                                             <div class="d-flex justify-content-start">
                                                 <button class="btn btn-outline-secondary rounded-end"
                                                     data-bs-toggle="modal" data-bs-target="#voirPlus{{ $t->id }}"
-                                                    style="margin-right:2px;" type="button" id="voirRequête"
+                                                     type="button" id="voirRequête"
                                                     name="voirRequête">
                                                     <i class="bi bi-eye fs-6"></i>
-                                                </button>
-                                                <button class="btn btn-outline-success rounded-end"
-                                                    data-bs-toggle="modal" data-bs-target="#approuver{{ $t->id }}" type="button"
-                                                    id="approuveRequête" name="approuveRequête">
-                                                    <i class="bi bi-check fs-6"></i>
-                                                </button>
-                                                <button class="btn btn-outline-danger rounded-end"
-                                                    data-bs-toggle="modal" data-bs-target="#refuser{{ $t->id }}"
-                                                    style="margin-left:2px;" type="button" id="refuseRequête"
-                                                    name="refuseRequête">
-                                                    <i class="bi bi-trash fs-6"></i>
                                                 </button>
                                             </div>
                                         </form>
@@ -199,6 +186,20 @@
                                 
                                                   <div class="row">
                                                     <div class="label">Justification : <label for="" class="text-dark">L'agent commercial a commis une erreur</label></div>
+                                                  </div> <br>
+                                                  
+                                                  <div class="d-flex align-items-center justify-content-center">
+                                                    <button class="btn btn-outline-success rounded-end me-4"
+                                                      data-bs-toggle="modal" data-bs-target="#approuver{{ $t->id }}" type="button"
+                                                      id="approuveRequête" name="approuveRequête">
+                                                      Approuver
+                                                    </button>
+                                                    <button class="btn btn-outline-danger rounded-end"
+                                                        data-bs-toggle="modal" data-bs-target="#refuser{{ $t->id }}"
+                                                        style="margin-left:2px;" type="button" id="refuseRequête"
+                                                        name="refuseRequête">
+                                                        Rejeter
+                                                    </button>
                                                   </div>
                                 
                                                 </div>

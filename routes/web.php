@@ -38,6 +38,9 @@ Route::post('welcome/post',function(Request $request){
     return redirect()->route('search-by-Cart');
 })->name('welcomePost');
 
+Route::get('day/open',[MutualistController::class,'dayOpen'])->name('dayOpen');
+Route::get('day/close',[MutualistController::class,'dayClose'])->name('dayClose');
+
 
 // eligibilite
 

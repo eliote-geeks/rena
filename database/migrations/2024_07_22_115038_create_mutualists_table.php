@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('matrimonial')->nullable();
             $table->string('beneficiary')->nullable();
             $table->longText('id_card_smart')->nullable();
+            // $table->boolean('done')->default(0);
             $table->timestamps();
         });
     }

@@ -80,7 +80,7 @@
                                                         <input type="number" class="form-control"
                                                             id="montantCotisations" value="26000"
                                                             placeholder="Entrez le montant annuel des cotisations"
-                                                            name="amount">
+                                                            name="amount" oninput="formatAmount(this)">
                                                             @error('amount')
                                                             <small class="text-danger">{{ $message }}</small>
                                                         @enderror

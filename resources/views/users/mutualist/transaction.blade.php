@@ -27,7 +27,7 @@
                                 <tr>
                                     <th>Nom du mutualiste</th>
                                     <th>Prenom du mutualiste</th>
-                                    <th>Matricule</th>
+                                    <th>N° de compte</th>
                                     <th>Heure du paiement</th>
                                     <th>Montant de la cotisation</th>
                                 </tr>

@@ -15,13 +15,13 @@
                     </div>
     
                     <div class="form-floating mb-3 visually-hidden">
-                        <input  type="text" class="form-control" id="floatingInput" placeholder="card" name="id_card_smart" autofocus>
+                        <input  type="text" class="form-control" id="floatingInput" placeholder="card" name="id_card_smart" autocomplete="off" autofocus>
                         <label for="floatingInput">Card</label>
                     </div>
     
                     @error('id_card_smart')
                         <div class="text-danger text-center mb-3">
-                            <small>{{ $message }}</small>
+                            <small>{{ $message }} Afficher une erreur si carte désactivée ou non existantes</small>
                         </div>
                     @enderror
     

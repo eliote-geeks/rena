@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\AmountYear;
 use App\Models\Year;
 use App\Models\Mutualist;
+use App\Models\Request as ModelsRequest;
 use App\Models\SmartCard;
 use App\Models\Transaction;
+use App\Models\TransactionStatus;
 use Illuminate\Http\Request;
 
 class MutualistController extends Controller
@@ -233,13 +235,20 @@ class MutualistController extends Controller
 
         $year = AmountYear::where('type','open')->firstOrFail();
 
-        $t = new Transaction();
-        $t->mutualist_id = $mutual->id;
-        $t->amount_year_id = $year->id;
-        $t->amount = $request->amount;
-        $t->content = 'Paiement par :'.auth()->user()->name.' le: '.now();
-        $t->save();
-        return redirect()->route('transactionHistory');
+        $som = Transaction::where('mutualist_id',$mutual->id)->sum('amount');
+
+        if($som >= $year->amount){ 
+            return redirect()->back()->with('message','OUps le solde du client est complet');
+        }else{
+            $t = new Transaction();
+            $t->mutualist_id = $mutual->id;
+            $t->amount_year_id = $year->id;
+            $t->amount = $request->amount;
+            $t->status = 1;
+            $t->content = 'Paiement par :'.auth()->user()->name.' le: '.now();
+            $t->save();
+            return redirect()->route('transactionHistory');
+        }
     }
 
     public function cotisationCard()
@@ -265,12 +274,19 @@ class MutualistController extends Controller
         $id = $t->mutualist->id;
         $year = AmountYear::where('type','open')->firstOrFail();
 
-        $t = new Transaction();
-        $t->mutualist_id = $id;
-        $t->amount_year_id = $year->id;
-        $t->amount = - $request->amount;
-        $t->content = $request->content;
-        $t->save();
+        // $table->foreignId('mutualist_id')->references('id')->on('mutualists')->onDelete('cascade');
+        // $table->foreignId('amount_year_id')->references('id')->on('amount_years')->onDelete('cascade');
+        // $table->string('new_amount');
+        // $table->string('old_amount');
+        // $table->string('content');
+        // $table->boolean('status')->default(0);
+        $req = new ModelsRequest();
+        $req->mutualist_id = $id;
+        $req->amount_year_id = $$year->id;
+        $req->new_amount = $t->amount;
+        $req->old_amount = $request->amount;
+        $req->content = $request->content;
+        $req->save();
         return redirect()->route('transactionHistory');        
     }
 
@@ -307,5 +323,25 @@ class MutualistController extends Controller
         return view('pages.eligible');
     }
 
-    
+    public function dayOpen()
+    {
+        if(TransactionStatus::where('status',1)->count() == 0){ 
+            $t = new TransactionStatus();
+            $t->status = 1;
+            $t->save();
+            return redirect()->back()->with('message','Jour Désormais Ouvert pour les transaction');
+        }
+        return redirect()->back()->with('message','Impossible d\'ouvrir un nouveau jour si le precedent n\'est pas fermé');
+    }
+
+    public function dayClose()
+    {
+        if(TransactionStatus::where('status',1)->count() > 0){ 
+            $t = TransactionStatus::where('status',1)->firstOrFail();
+            $t->status = 0;
+            $t->save();
+            return redirect()->back()->with('message','Jour Désormais Fermée Impossible desormais d\'effectuer des transactions');
+        }
+        return redirect()->back()->with('message','Aucun Jour Ouvert');
+    }
 }

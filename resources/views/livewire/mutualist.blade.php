@@ -10,13 +10,13 @@
                             <!-- Menu de navigation -->
                             <ul class="nav nav-tabs nav-tabs-bordered">
 
-                                <li class="nav-item">
+                                <li class="nav-item visually-hidden">
                                     <button class="nav-link {{ $status1 == 'show active' ? 'active' : '' }}"
                                         wire:click='fillForm'>Remplir
                                         les informations</button>
                                 </li>
 
-                                <li class="nav-item">
+                                <li class="nav-item visually-hidden">
                                     <button class="nav-link {{ $status2 == 'show active' ? 'active' : '' }}"
                                         wire:click='confirmInfo'>Confirmer
                                         les informations</button>
@@ -25,7 +25,7 @@
                             </ul> <br>
                             <!-- Fin Menu de navigation -->
                             <div>
-                                <button wire:click='changeCreate' class="btn btn-info">List Mutualist</button>
+                                <button wire:click='changeCreate' class="btn btn-info">Liste des comptes mutualistes</button>
                             </div>
                             <div class="tab-content pt-2">
 
@@ -460,7 +460,7 @@
                 @else
                     {{-- liste  --}}
                     <div>
-                        <button wire:click='changeCreate' class="btn btn-sm btn-info">Create a Mutualist</button>
+                        <button wire:click='changeCreate' class="btn btn-sm btn-info">Créer un compte mutualiste</button>
                     </div>
 
                     <table class="table datatable">

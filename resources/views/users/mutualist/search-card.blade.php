@@ -33,9 +33,7 @@
                     </div>
     
                     @error('id_card_smart')
-                        <div class="text-danger text-center mb-3">
-                            <small>{{ $message }}</small>
-                        </div>
+                            <small class="text-danger">{{ $message }}Afficher une erreur si carte désactivée ou non existantes</small>
                     @enderror
     
                 </form>

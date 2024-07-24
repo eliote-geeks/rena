@@ -45,15 +45,15 @@
                 <!-- Menu de navigation -->
                 <ul class="nav nav-tabs nav-tabs-bordered">
 
-                  <li class="nav-item">
+                  <li class="nav-item visually-hidden">
                     <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#addInfos">Remplir les informations</button>
                   </li>
 
-                  <li class="nav-item">
+                  <li class="nav-item visually-hidden">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#confirmInfos">Confirmer les informations</button>
                   </li>
 
-                  <li class="nav-item">
+                  <li class="nav-item visually-hidden">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#addCarte">Attribuer une carte</button>
                   </li>
 

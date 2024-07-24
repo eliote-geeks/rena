@@ -28,7 +28,7 @@
                                     <div class="col-md-8 col-lg-6">
                                         <input name="number" type="number" class="form-control" id="montantCotisation"
                                             placeholder="Entrez le montant de la cotisation" name="montantCotisation"
-                                            required>
+                                            required oninput="formatAmount(this)">
                                     </div>
                                 </div>
 

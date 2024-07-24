@@ -133,13 +133,6 @@
                         <div class="row">
                           <div class="label">Nom du bénéficiaire en cas de décès : <label for="" class="text-dark">{{ $mutualist->beneficiary }}</label></div>
                         </div>
-
-                    
-                       
-
-                        <div class="text-center">
-                          <button type="button" data-bs-toggle="modal" data-bs-target="#preview-modal" class="btn btn-primary">Suivant</button>
-                        </div>
                         
                       </div>
                     </div>
@@ -154,13 +147,13 @@
                         <thead>
                           <tr>
                             <th class="align-middle">Solde du compte</th>
-                            <th class="align-middle">Année</th>
+                            <th class="align-middle">Acte</th>
                           </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="align-middle">18000FCFA</td>
-                                <td class="align-middle">2024</td>
+                                <td class="align-middle">Acte 1</td>
                             </tr>
                         </tbody>
                       </table>
@@ -179,7 +172,7 @@
                             <th>Date du paiement</th>
                             <th>Heure du paiement</th>
                             <th>Montant de la transaction</th>
-                            <th>Année</th>
+                            <th>Acte</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -188,7 +181,7 @@
                                 <td>14/01/2024</td>
                                 <td>12h45</td>
                                 <td>8000FCFA</td>
-                                <td>2020</td>
+                                <td>Acte</td>
                             </tr>
                         </tbody>
                       </table>

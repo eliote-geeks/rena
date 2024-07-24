@@ -4,7 +4,7 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Historique</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;">Historique</a></li>
                 <li class="breadcrumb-item active">Transactions de la journée</li>
             </ol>
         </nav>
@@ -20,11 +20,17 @@
                             <label for="fullName" class="col-md-4 col-lg-6 col-form-label">Montant total des cotisations
                                 : {{ number_format(\App\Models\Transaction::where('status',1)->sum('amount')) }}FCFA </label>
                             <div class="d-flex justify-content-end p-3">
-                                <form action="#" method="post">
-                                    <button type="submit" class="btn btn-primary" name="ouvertureJournée">Ouvrir la
-                                        journée</button>
-                                    <button type="submit" class="btn btn-primary" name="clotureJournée">Cloturer la
-                                        journée</button>
+                                <form action="javascript:;" method="post">
+
+                                    
+                                   
+                                    @if (App\Models\TransactionStatus::where('status',1)->count() > 0)
+                                    <a class="btn btn-success" href="{{ route('dayClose') }}">Cloturer la
+                                        journée</a>
+                                    @else
+                                    <a class="btn btn-success" href="{{ route('dayOpen') }}">Ouvrir la
+                                        journée</a>
+                                    @endif
                                 </form>
                             </div>
                         </div>
@@ -33,7 +39,7 @@
                             <thead>
                                 <tr>
                                     <th>Nom du mutualiste</th>
-                                    <th>Matricule</th>
+                                    <th>N° de compte</th>
                                     <th>Date du paiement</th>
                                     <th>Montant de la cotisation</th>
                                     <th>Option</th>
@@ -95,7 +101,7 @@
                                                                                     class="form-control"
                                                                                     id="montantCotisation"
                                                                                     placeholder="Entrez le montant de la cotisation"
-                                                                                    name="amount" value="{{ $t->amount }}"
+                                                                                    name="amount" oninput="formatAmount(this)"
                                                                                     required>
                                                                             </div>
                                                                         </div>
