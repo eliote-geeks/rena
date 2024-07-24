@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('amount_year_id')->references('id')->on('amount_years')->onDelete('cascade');
             $table->string('amount');
             $table->string('content');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

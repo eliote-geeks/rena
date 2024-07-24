@@ -26,7 +26,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="requêtes.php">
+            <a class="nav-link collapsed" href="{{ route('requests') }}">
                 <i class="bi bi-hourglass-top fs-5"></i>
                 <span>Requêtes</span>
             </a>
@@ -75,15 +75,11 @@
             </a>
             <ul id="historique-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="transactions-journée.php">
-                        <i class="bi bi-currency-exchange fs-6"></i><span>Transactions de la journée</span>
+                    <a href="{{ route('transactionHistory') }}">
+                        <i class="bi bi-currency-exchange fs-6"></i><span>Transactions</span>
                     </a>
                 </li>
-                <li>
-                    <a href="historique-cotisation.php">
-                        <i class="bi bi-journal-text fs-6"></i><span>Cotisations des mutualistes</span>
-                    </a>
-                </li>
+
                 <li>
             </ul>
         </li>

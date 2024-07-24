@@ -238,11 +238,66 @@ class MutualistController extends Controller
         $t->amount = $request->amount;
         $t->content = 'Paiement par :'.auth()->user()->name.' le: '.now();
         $t->save();
-
+        return redirect()->route('transactionHistory');
     }
 
     public function cotisationCard()
     {
         return view('cotisations.cotisation-card');
+    }
+
+    public function transactionHistory()
+    {
+        $transactions = Transaction::where('status',1)->latest()->get();
+        return view('cotisations.history',[
+            'transactions' => $transactions
+        ]);
+    }
+
+
+    public function editTransaction(Request $request,Transaction $t)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:500',
+            'content' => 'required'
+        ]); 
+        $id = $t->mutualist->id;
+        $year = AmountYear::where('type','open')->firstOrFail();
+
+        $t = new Transaction();
+        $t->mutualist_id = $id;
+        $t->amount_year_id = $year->id;
+        $t->amount = - $request->amount;
+        $t->content = $request->content;
+        $t->save();
+        return redirect()->route('transactionHistory');        
+    }
+
+    public function requests()
+    {
+        $transactions = Transaction::where('status',0)->latest()->get();
+        return view('cotisations.requests',[
+            'transactions' => $transactions
+        ]);
+    }
+
+    public function changeStatus(Transaction $t)
+    {
+        if($t->status == 1){ 
+            $t->status = 0;
+        }
+        else{ 
+            $t->status = 1;
+        }
+        $t->save();
+
+        return redirect()->back()->with('message','saved!!');
+    }
+
+    public function deleteStatus(Transaction $t)
+    {
+        $t->delete();
+
+        return redirect()->back()->with('message','saved!!');
     }
 }

@@ -29,13 +29,13 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect()->route('search-by-Cart');
     })->name('dashboard');
 });
 
 
 Route::post('welcome/post',function(Request $request){
-    dd($request->all());
+    return redirect()->route('search-by-Cart');
 })->name('welcomePost');
 
 
@@ -54,7 +54,11 @@ Route::get('cotisation-card',[MutualistController::class,'cotisationCard'])->nam
 Route::post('cotisation-card',[MutualistController::class,'searchTransactionCard'])->name('searchTransactionCard');
 Route::get('start-Transaction/{mutual}',[MutualistController::class,'startTransaction'])->name('startTransaction');
 Route::post('addTransaction/{mutual}',[MutualistController::class,'addTransaction'])->name('addTransaction');
-
+Route::get('transaction/history',[MutualistController::class,'transactionHistory'])->name('transactionHistory');
+Route::post('edit-Transaction/{t}',[MutualistController::class,'editTransaction'])->name('editTransaction');
+Route::get('requests',[MutualistController::class,'requests'])->name('requests');
+Route::get('changeStatus/{t}',[MutualistController::class,'changeStatus'])->name('changeStatus');
+Route::get('deleteStatus/{t}',[MutualistController::class,'deleteStatus'])->name('deleteStatus');
 
 
 
