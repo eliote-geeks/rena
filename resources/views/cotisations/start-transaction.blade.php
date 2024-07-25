@@ -42,7 +42,7 @@
                       </div>
   
                       <div class="text-center">
-                        <button type="submit" @if(\App\Models\TransactionStatus::where('status',0)->count() > 0) disabled  @endif class="btn btn-primary">Valider</button>
+                        <button type="submit" @if(\App\Models\TransactionStatus::where('status',1)->count() == 0) disabled  @endif class="btn btn-primary">Valider</button>
                       </div>
                     </form><!-- End Profile Edit Form -->
   

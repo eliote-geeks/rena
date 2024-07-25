@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('mutualist_id')->references('id')->on('mutualists')->onDelete('cascade');
             $table->foreignId('amount_year_id')->references('id')->on('amount_years')->onDelete('cascade');
+            $table->foreignId('transaction_id')->references('id')->on('transactions')->onDelete('cascade');
             $table->string('new_amount');
             $table->string('old_amount');
             $table->string('content');

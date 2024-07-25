@@ -13,8 +13,8 @@ class AmountYearController extends Controller
      */
     public function index()
     {
-      $amounts = AmountYear::all();
-        return view('pages.year',compact('amounts'));
+        $amounts = AmountYear::all();
+        return view('pages.year', compact('amounts'));
     }
 
     /**
@@ -30,30 +30,34 @@ class AmountYearController extends Controller
      */
     public function store(Request $request)
     {
+        $now = Carbon::now();
 
-        $validatedData = $request->validate([
-            'amount' => 'required',
-            'start' => 'required|date',
-            'end' => 'required|date|after_or_equal:start_date',
-        ], [
-            'end.after_or_equal' => 'The end date must be a date after or equal to the start date.',
-        ]);
-
-    
-        $startDate = Carbon::parse($request->start);
-        $endDate = Carbon::parse($request->end);
-
-        if ($startDate->diffInYears($endDate) < 1) {
-            return back()->withErrors(['end' => 'The end date must be at least one year after the start date.']);
+        // Déterminez les dates de début et de fin en fonction de la date actuelle
+        if ($now->month > 6 || ($now->month == 6 && $now->day >= 30)) {
+            // Si nous sommes après le 30 juin, commencez cette année et finissez l'année suivante
+            $start = Carbon::create($now->year, 6, 30);
+            $end = Carbon::create($now->year + 1, 6, 29);
+        } else {
+            // Sinon, commencez l'année dernière et finissez cette année
+            $start = Carbon::create($now->year - 1, 6, 30);
+            $end = Carbon::create($now->year, 6, 29);
         }
 
-        $amount = new AmountYear();
-        $amount->start = $request->start;
-        $amount->end = $request->end;
-        $amount->type = 'open';
-        $amount->amount = $request->amount;
-        $amount->save();
-        return redirect()->back()->with('message','saved !!');
+        // Créez un nom pour la nouvelle année
+        $name = $start->format('Y') . '-' . $end->format('Y');
+
+        // Mettre à jour toutes les autres années pour qu'elles soient "close"
+        AmountYear::where('type', 'open')->update(['type' => 'close']);
+
+        // Créez une nouvelle instance de Year et définissez les attributs
+        $year = new AmountYear();
+        $year->start = $start->format('Y-m-d');
+        $year->end = $end->format('Y-m-d');
+        $year->type = 'open';
+        $year->amount = 26000;
+        $year->name = $name;
+        $year->save();
+        return redirect()->back()->with('message', 'Enregistree !!');
     }
 
     /**
@@ -81,7 +85,7 @@ class AmountYearController extends Controller
             'start' => 'required|date',
             'end' => 'required|date|after:start',
             'amount' => 'required',
-            'status' => 'required'
+            'status' => 'required',
         ]);
 
         $amount = new AmountYear();
@@ -90,14 +94,39 @@ class AmountYearController extends Controller
         $amount->type = $request->status;
         $amount->amount = $request->amount;
         $amount->save();
-        return redirect()->back()->with('message','edited !!');
+        return redirect()->back()->with('message', 'edited !!');
     }
 
     public function closeYear(AmountYear $year)
     {
-        $year->type = 'close';
+        $now = Carbon::now();
+
+        // Déterminez les dates de début et de fin en fonction de la date actuelle
+        if ($now->month > 6 || ($now->month == 6 && $now->day >= 30)) {
+            // Si nous sommes après le 30 juin, commencez cette année et finissez l'année suivante
+            $start = Carbon::create($now->year, 6, 30);
+            $end = Carbon::create($now->year + 1, 6, 29);
+        } else {
+            // Sinon, commencez l'année dernière et finissez cette année
+            $start = Carbon::create($now->year - 1, 6, 30);
+            $end = Carbon::create($now->year, 6, 29);
+        }
+
+        // Créez un nom pour la nouvelle année
+        $name = $start->format('Y') . '-' . $end->format('Y');
+
+        // Mettre à jour toutes les autres années pour qu'elles soient "close"
+        AmountYear::where('type', 'open')->update(['type' => 'close']);
+
+        // Créez une nouvelle instance de Year et définissez les attributs
+        $year = new AmountYear();
+        $year->start = $start->format('Y-m-d');
+        $year->end = $end->format('Y-m-d');
+        $year->type = 'open';
+        $year->amount = 26000;
+        $year->name = $name;
         $year->save();
-        return redirect()->route('amountYear.index');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -106,15 +135,15 @@ class AmountYearController extends Controller
     public function destroy(AmountYear $amountYear)
     {
         $amountYear->delete();
-        return redirect()->back()->with('message','deleted !!');
+        return redirect()->back()->with('message', 'deleted !!');
     }
 
     public function closeYearAmount()
     {
-        $year = AmountYear::where('type','open')->latest()->firstOrFail();
-        
-        return view('pages.close-year',[
-            'year' => $year
+        $year = AmountYear::where('type', 'open')->latest()->firstOrFail();
+
+        return view('pages.close-year', [
+            'year' => $year,
         ]);
     }
 }

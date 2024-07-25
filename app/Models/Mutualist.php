@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Request;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,4 +42,9 @@ class Mutualist extends Model
         return $totalAmountForYear - $paidAmountForYear;
     }
     
+
+    public function req()
+    {
+        return $this->hasMany(Request::class);
+    }
 }

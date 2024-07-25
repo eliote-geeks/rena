@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Beneficiary;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\SmartCard;
@@ -190,6 +191,14 @@ class Mutualist extends Component
         $mutual->matrimonial = $this->matrimonialStatus;
         $mutual->beneficiary = $this->beneficary;
         $mutual->save();
+
+        foreach($this->secondaryInsureds as $s)
+        {
+            $b = new Beneficiary();
+            $b->user_id = $mutual->id;
+            $b->name = $s;
+            $b->save();
+        }
 
         $this->alert('success', ' Successfully !!');
 

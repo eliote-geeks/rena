@@ -40,6 +40,39 @@
     <!-- Start #main -->
     <main id="main" class="main">
         {{ $slot }}
+
+        @if(session('message'))
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successModalLabel">Succès</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ session('message') }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+</div>
+
+<!-- Inclure les scripts de Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script pour afficher la modale si un message de réussite est présent -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if(session('message'))
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+            myModal.show();
+        @endif
+    });
+</script>
     </main>
     <!-- End #main -->
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i

@@ -67,6 +67,7 @@ Route::get('changeStatus/{t}',[MutualistController::class,'changeStatus'])->name
 Route::get('deleteStatus/{t}',[MutualistController::class,'deleteStatus'])->name('deleteStatus');
 
 
+Route::get('approval/request/{t}',[MutualistController::class,'ApprovalRequest'])->name('ApprovalRequest');
 
 
 Route::get('add-Card/{mutual}',[MutualistController::class,'addCart'])->name('add-Cart');

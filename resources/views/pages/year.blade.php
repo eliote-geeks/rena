@@ -39,35 +39,11 @@
                                         <label for="fullName" class="col-form-label">Définir la période de l'année des
                                             cotisations</label>
                                             
-                                        <label for="fullName" class="col-form-label"
-                                            style="color: gray; font-size:17px;">La période actuelle va du 14/07/2024 au
-                                            13/07/2024</label>
+      
                                     </div>
                                     <div class="" style="font-weight: bold; color: gray;">
                                         <form action="{{ route('amountYear.store') }}" method="POST" id="account-form">
                                             @csrf
-                                            <div class="row mb-3">
-                                                <div class="form-group row">
-                                                    <label for="input1" class="col-sm-2 col-form-label">Date de
-                                                        début:</label>
-                                                    <div class="col-sm-4">
-                                                        <input type="date" class="form-control" id="debutAnnée"
-                                                            name="start">
-                                                            @error('start')
-                                                                <small class="text-danger">{{ $message }}</small>
-                                                            @enderror
-                                                    </div>
-                                                    <label for="input2" class="col-sm-2 col-form-label">Date de
-                                                        fin:</label>
-                                                    <div class="col-sm-4">
-                                                        <input type="date" class="form-control" id="finAnnée"
-                                                            name="end">
-                                                            @error('end')
-                                                            <small class="text-danger">{{ $message }}</small>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <div class="row mb-3">
                                                 <div
@@ -80,7 +56,7 @@
                                                         <input type="number" class="form-control"
                                                             id="montantCotisations" value="26000"
                                                             placeholder="Entrez le montant annuel des cotisations"
-                                                            name="amount" oninput="formatAmount(this)">
+                                                            name="amount" >
                                                             @error('amount')
                                                             <small class="text-danger">{{ $message }}</small>
                                                         @enderror

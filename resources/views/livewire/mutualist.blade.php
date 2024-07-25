@@ -315,7 +315,7 @@
                                                     <div class="col-md-12">
                                                         <i class="bi bi-plus-circle-fill text-success"
                                                             style="cursor: pointer;" wire:click="addSecondaryInsured">
-                                                            Ajouter</i>
+                                                            Ajouter un assuré secondaire</i>
                                                     </div>
                                                 </div>
 

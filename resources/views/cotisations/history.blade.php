@@ -18,7 +18,7 @@
                     <div class="card-body"> <br>
                         <div class="row mb-3" style="font-weight: bold; color: black;">
                             <label for="fullName" class="col-md-4 col-lg-6 col-form-label">Montant total des cotisations
-                                : {{ number_format(\App\Models\Transaction::where('status',1)->sum('amount')) }}FCFA </label>
+                                : {{ \App\Models\Transaction::where('status',1)->sum('amount') }}FCFA </label>
                             <div class="d-flex justify-content-end p-3">
                                 <form action="javascript:;" method="post">
 
@@ -51,7 +51,7 @@
                                         <td>{{ $t->mutualist->first }} </td>
                                         <td>{{ $t->mutualist->num_identification }}</td>
                                         <td>{{ \Carbon\Carbon::parse($t->created_at)->format('d, M Y') }}</td>
-                                        <td>{{ number_format($t->amount) }} FCFA</td>
+                                        <td>{{ $t->amount }} FCFA</td>
                                         <td class="align-middle text-center">
                                             <form action="javascript:;" method="post">
                                                 <button class="btn btn-outline-success rounded-end" type="button"
@@ -97,7 +97,7 @@
                                                                                 class="col-md-4 col-lg-5 col-form-label">Nouveau Montant
                                                                                 de la cotisation en FCFA :</label>
                                                                             <div class="col-md-8 col-lg-6">
-                                                                                <input type="number"
+                                                                                <input type="text"
                                                                                     class="form-control"
                                                                                     id="montantCotisation"
                                                                                     placeholder="Entrez le montant de la cotisation"
@@ -112,7 +112,7 @@
                                                                                 :</label>
                                                                             <div class="col-md-8 col-lg-6">
                                                                                 <textarea name="content"  class="form-control" id="justificationEdit"
-                                                                                    placeholder="Entrez une justification de la modification" name="justificationEdit" value="1000" required></textarea>
+                                                                                    placeholder="Entrez une justification de la modification" name="content" value="1000" required></textarea>
                                                                             </div>
                                                                         </div>
 
