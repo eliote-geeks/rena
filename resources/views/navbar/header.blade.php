@@ -30,10 +30,18 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}" 
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.show') }}">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Se déconnecter</span>
                         </a>
@@ -41,6 +49,10 @@
                             @csrf
                         </form>
                     </li>
+
+
+
+                    
 
                 </ul><!-- End Profile Dropdown Items -->
             </li><!-- End Profile Nav -->
