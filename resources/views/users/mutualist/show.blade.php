@@ -93,7 +93,7 @@
 
                                         <div class="row">
                                             <div class="label">Sexe : <label for=""
-                                                    class="text-dark">{{ $mutualist->sex }}</label></div>
+                                                    class="text-dark">{{ $mutualist->sexe }}</label></div>
                                         </div>
 
                                         <div class="row">
