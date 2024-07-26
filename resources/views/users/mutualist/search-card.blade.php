@@ -19,7 +19,7 @@
             <div class="card-body">
                 <h1 class="fw-bold text-center text-black mb-4">APPROCHEZ LA CARTE DU MUTUALISTE POUR RECHERCHER SON COMPTE</h1>
     
-                {{-- <form action="{{ route('searchByCard') }}" method="POST" id="account-form" autocomplete="off">
+                <form action="{{ route('searchByCard') }}" method="POST" id="account-form" autocomplete="off">
                     @csrf
                     <div class="d-flex justify-content-center mb-3">
                         <div class="spinner-grow text-primary" style="width: 7rem; height: 7rem;">
@@ -36,9 +36,9 @@
                             <small class="text-danger">{{ $message }}Afficher une erreur si carte désactivée ou non existantes</small>
                     @enderror
     
-                </form> --}}
+                </form>
 
-                <div class="d-flex justify-content-around">
+                {{-- <div class="d-flex justify-content-around">
                     @if (App\Models\SmartCard::where('id_card_smart', '7391825640')->count() > 0)
                         <form action="{{ route('searchByCard', ['id_card_smart' => '7391825640']) }}"
                             method="POST">
@@ -70,7 +70,7 @@
                             <button type="submit" class="btn btn-danger" id="card4">Card 4</button>
                         </form>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

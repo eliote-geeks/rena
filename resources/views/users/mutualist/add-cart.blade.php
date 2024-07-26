@@ -1,7 +1,7 @@
 <x-layouts>
     <base href="/">
 
-    {{-- <div class="container mt-5">
+    <div class="container mt-5">
         <div class="card shadow-sm">
             <div class="card-body">
                 <h1 class="fw-bold text-center text-black mb-4">APPROCHEZ LA CARTE DU MUTUALISTE POUR CREER SON COMPTE</h1>
@@ -28,9 +28,9 @@
                 </form>
             </div>
         </div>
-    </div> --}}
+    </div>
 
-    <div class="container mt-5">
+    {{-- <div class="container mt-5">
         <div class="card shadow-sm">
             <div class="card-body">
                 <h1 class="fw-bold text-center text-black mb-4">APPROCHEZ LA CARTE DU MUTUALISTE POUR CREER SON COMPTE
@@ -89,7 +89,7 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     @if (session()->has('message'))
